@@ -1,3 +1,6 @@
+import heapq as q
+import math
+
 goal_state = 1_2_3_4_5_6_7_8
 
 
@@ -80,7 +83,7 @@ def bfs(initial_state: tuple):
 
         neighbors = get_neighbors(state)
         for neighbor in neighbors:
-            if neighbor[0] not in parents.keys() and neighbor not in explored:
+            if neighbor[0] not in parents and neighbor not in explored:
                 frontier.append(neighbor)
                 parents[neighbor[0]] = state[0]
 
@@ -109,6 +112,80 @@ def dfs(initial_state: tuple):
         for neighbor in neighbors:
             if neighbor[0] not in parents and neighbor not in explored:
                 frontier.append(neighbor)
+                parents[neighbor[0]] = state[0]
+
+    return None
+
+
+def a_star_with_manhattan(initial_state: tuple):
+    """
+    This function takes the initial state of the 8-puzzle board and returns
+    a dictionary of parents and children.
+    """
+    frontier = []
+    explored = set()
+    parents = dict()
+    x = initial_state[1] // 3
+    y = initial_state[1] % 3
+    manhattan = abs(x - 2) + abs(y - 2)
+    q.heappush(frontier, (manhattan, (0, initial_state)))
+    parents[initial_state[0]] = initial_state[0]
+
+    while len(frontier) > 0:
+        _, v = q.heappop(frontier)
+        distance = v[0]
+        state = v[1]
+        if state in explored:
+            continue
+        explored.add(state)
+
+        if state[0] == goal_state:
+            return parents, len(explored)
+
+        neighbors = get_neighbors(state)
+        for neighbor in neighbors:
+            if neighbor[0] not in parents and neighbor not in explored:
+                x = neighbor[1] // 3
+                y = neighbor[1] % 3
+                manhattan = abs(x - 2) + abs(y - 2)
+                q.heappush(frontier, (manhattan + distance + 1, (distance + 1, neighbor)))
+                parents[neighbor[0]] = state[0]
+
+    return None
+
+
+def a_star_with_euclidean(initial_state: tuple):
+    """
+    This function takes the initial state of the 8-puzzle board and returns
+    a dictionary of parents and children.
+    """
+    frontier = []
+    explored = set()
+    parents = dict()
+    x = initial_state[1] // 3
+    y = initial_state[1] % 3
+    euclidean = math.sqrt(pow(x - 2, 2) + pow(y - 2, 2))
+    q.heappush(frontier, (euclidean, (0, initial_state)))
+    parents[initial_state[0]] = initial_state[0]
+
+    while len(frontier) > 0:
+        _, v = q.heappop(frontier)
+        distance = v[0]
+        state = v[1]
+        if state in explored:
+            continue
+        explored.add(state)
+
+        if state[0] == goal_state:
+            return parents, len(explored)
+
+        neighbors = get_neighbors(state)
+        for neighbor in neighbors:
+            if neighbor[0] not in parents and neighbor not in explored:
+                x = neighbor[1] // 3
+                y = neighbor[1] % 3
+                euclidean = math.sqrt(pow(x - 2, 2) + pow(y - 2, 2))
+                q.heappush(frontier, (euclidean + distance + 1, (distance + 1, neighbor)))
                 parents[neighbor[0]] = state[0]
 
     return None

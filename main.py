@@ -1,8 +1,8 @@
 import time
-from search import goal_state, bfs, dfs, print_path
+from search import goal_state, bfs, dfs, a_star_with_manhattan, a_star_with_euclidean, print_path
 
 start = time.time()
-solution = dfs((806547231, 7))
+solution = a_star_with_euclidean((806547231, 7))
 end = time.time()
 
 if solution is not None:
@@ -31,3 +31,13 @@ if solution is not None:
 # solution = dfs((142658730, 0))
 # solution = dfs((102754863, 7))
 # solution = dfs((806547231, 7))
+# ------------------------------
+# solution = a_star_with_manhattan((125340678, 3))
+# solution = a_star_with_manhattan((142658730, 0))
+# solution = a_star_with_manhattan((102754863, 7))
+# solution = a_star_with_manhattan((806547231, 7))
+# ------------------------------
+# solution = a_star_with_euclidean((125340678, 3))
+# solution = a_star_with_euclidean((142658730, 0))
+# solution = a_star_with_euclidean((102754863, 7))
+# solution = a_star_with_euclidean((806547231, 7))
