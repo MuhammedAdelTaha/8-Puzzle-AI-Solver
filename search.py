@@ -1,0 +1,114 @@
+goal_state = 1_2_3_4_5_6_7_8
+
+
+def print_state(ls):
+    for i in range(0, len(ls), 3):
+        print(ls[i], ls[i + 1], ls[i + 2])
+
+
+def print_path(states):
+    for i in range(len(states) - 1, -1, -1):
+        ls = []
+        for j in range(8, -1, -1):
+            ls.append((states[i] % pow(10, j + 1)) // pow(10, j))
+        print_state(ls)
+        print()
+
+
+def swap_digits(number, zero_pos, digit_pos):
+    """
+    This function takes a number, the position of the zero-digit on that number, and the position of the digit to be
+    swapped with the zero-digit and returns the number after swapping.
+    """
+    swapped_digit = (number % pow(10, digit_pos + 1)) // pow(10, digit_pos)
+    return number + swapped_digit * pow(10, zero_pos) - swapped_digit * pow(10, digit_pos)
+
+
+def get_neighbors(state: tuple):
+    """
+    This function takes a state and returns the valid states to go to from
+    this state.
+    """
+    # state[0] is the board representation number
+    # state[1] is the zero position
+    # digit_pos is the position of the digit to be swapped with the empty space
+    # neighbors is a list of tuples every tuple represents a state of the board as (number, position of the empty space)
+    number = state[0]
+    zero_pos = state[1]
+    neighbors = []
+
+    # Up
+    digit_pos = zero_pos + 3
+    if digit_pos <= 8:
+        neighbors.append((swap_digits(number, zero_pos, digit_pos), digit_pos))
+
+    # Left
+    if zero_pos % 3 < 2:
+        digit_pos = zero_pos + 1
+        neighbors.append((swap_digits(number, zero_pos, digit_pos), digit_pos))
+
+    # Down
+    digit_pos = zero_pos - 3
+    if digit_pos >= 0:
+        neighbors.append((swap_digits(number, zero_pos, digit_pos), digit_pos))
+
+    # Right
+    if zero_pos % 3 > 0:
+        digit_pos = zero_pos - 1
+        neighbors.append((swap_digits(number, zero_pos, digit_pos), digit_pos))
+
+    return neighbors
+
+
+def bfs(initial_state: tuple):
+    """
+    This function takes the initial state of the 8-puzzle board and returns
+    a dictionary of parents and children.
+    """
+    frontier = []
+    explored = set()
+    parents = dict()
+    frontier.append(initial_state)
+    parents[initial_state[0]] = initial_state[0]
+
+    while len(frontier) > 0:
+        state = frontier.pop(0)
+        explored.add(state)
+
+        if state[0] == goal_state:
+            return parents, len(explored)
+
+        neighbors = get_neighbors(state)
+        for neighbor in neighbors:
+            if neighbor[0] not in parents.keys() and neighbor not in explored:
+                frontier.append(neighbor)
+                parents[neighbor[0]] = state[0]
+
+    return None
+
+
+def dfs(initial_state: tuple):
+    """
+    This function takes the initial state of the 8-puzzle board and returns
+    a dictionary of parents and children.
+    """
+    frontier = []
+    explored = set()
+    parents = dict()
+    frontier.append(initial_state)
+    parents[initial_state[0]] = initial_state[0]
+
+    while len(frontier) > 0:
+        state = frontier.pop()
+        explored.add(state)
+
+        if state[0] == goal_state:
+            return parents, len(explored)
+
+        neighbors = get_neighbors(state)
+        for neighbor in neighbors:
+            if neighbor[0] not in parents and neighbor not in explored:
+                frontier.append(neighbor)
+                parents[neighbor[0]] = state[0]
+
+    return None
