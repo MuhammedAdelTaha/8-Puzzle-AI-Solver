@@ -3,8 +3,7 @@ from search import goal_state, bfs, dfs, a_star_with_manhattan, a_star_with_eucl
 
 
 def display_results(solution, time_taken):
-    parents = solution[0]
-    expanded_nodes = solution[1]
+    parents, expanded_nodes, depth = solution
     if parents is not None:
         state = goal_state
         path = [state]
@@ -13,9 +12,9 @@ def display_results(solution, time_taken):
             path.append(state)
 
         print_path(path)
-        print("Depth:", len(path) - 1)
         print("Cost of the path:", len(path) - 1)
 
+    print("Depth:", depth)
     print("Number of expanded nodes:", expanded_nodes)
     print("Running time:", time_taken)
 
@@ -62,27 +61,27 @@ def a_star_with_euclidean_test(initial_state: tuple):
 
 # test case
 # ---------
-# bfs_test((123456870, 0))
-# dfs_test((123456870, 0))
-# a_star_with_manhattan_test((123456870, 0))
-# a_star_with_euclidean_test((123456870, 0))
+# bfs_test((123456870, 0, 0))
+# dfs_test((123456870, 0, 0))
+# a_star_with_manhattan_test((123456870, 0, 0))
+# a_star_with_euclidean_test((123456870, 0, 0))
 # ------------------------------------------
-# bfs_test((125340678, 3))
-# dfs_test((125340678, 3))
-# a_star_with_manhattan_test((125340678, 3))
-# a_star_with_euclidean_test((125340678, 3))
+# bfs_test((125340678, 3, 0))
+# dfs_test((125340678, 3, 0))
+# a_star_with_manhattan_test((125340678, 3, 0))
+# a_star_with_euclidean_test((125340678, 3, 0))
 # ------------------------------------------
-# bfs_test((142658730, 0))
-# dfs_test((142658730, 0))
-# a_star_with_manhattan_test((142658730, 0))
-# a_star_with_euclidean_test((142658730, 0))
+# bfs_test((142658730, 0, 0))
+# dfs_test((142658730, 0, 0))
+# a_star_with_manhattan_test((142658730, 0, 0))
+# a_star_with_euclidean_test((142658730, 0, 0))
 # ------------------------------------------
-# bfs_test((102754863, 7))
-# dfs_test((102754863, 7))
-# a_star_with_manhattan_test((102754863, 7))
-# a_star_with_euclidean_test((102754863, 7))
+# bfs_test((102754863, 7, 0))
+# dfs_test((102754863, 7, 0))
+# a_star_with_manhattan_test((102754863, 7, 0))
+# a_star_with_euclidean_test((102754863, 7, 0))
 # ------------------------------------------
-# bfs_test((806547231, 7))
-# dfs_test((806547231, 7))
-# a_star_with_manhattan_test((806547231, 7))
-# a_star_with_euclidean_test((806547231, 7))
+# bfs_test((806547231, 7, 0))
+# dfs_test((806547231, 7, 0))
+# a_star_with_manhattan_test((806547231, 7, 0))
+# a_star_with_euclidean_test((806547231, 7, 0))
