@@ -135,6 +135,26 @@ def dfs(initial_state: tuple):
     return None, len(explored), max_depth
 
 
+def calc_heuristic(number, heuristic_type):
+    """
+    This function takes the number representation of the 8-puzzle and calculates its manhattan/Euclidean heuristic
+    """
+    total = 0
+    for i in range(8, -1, -1):
+        digit = (number % pow(10, i + 1)) // pow(10, i)
+        curr_pos = 8 - i
+        x_curr = curr_pos // 3
+        y_curr = curr_pos % 3
+        x_right_pos = digit // 3
+        y_right_pos = digit % 3
+        if heuristic_type == "manhattan":
+            total += abs(x_right_pos - x_curr) + abs(y_right_pos - y_curr)
+        elif heuristic_type == "euclidean":
+            total += math.sqrt(pow(x_right_pos - x_curr, 2) + pow(y_right_pos - y_curr, 2))
+
+    return total
+
+
 def a_star_with_manhattan(initial_state: tuple):
     """
     This function takes the initial state of the 8-puzzle board and returns a tuple containing a dictionary of parents
@@ -144,9 +164,7 @@ def a_star_with_manhattan(initial_state: tuple):
     frontier = []
     explored = set()
     parents = dict()
-    x = initial_state[1] // 3
-    y = initial_state[1] % 3
-    manhattan = abs(x - 2) + abs(y - 2)
+    manhattan = calc_heuristic(initial_state[0], "manhattan")
     q.heappush(frontier, (manhattan, initial_state))
     parents[initial_state[0]] = initial_state[0]
     max_depth = 0
@@ -162,11 +180,9 @@ def a_star_with_manhattan(initial_state: tuple):
 
         neighbors = get_neighbors(state)
         for neighbor in neighbors:
-            number, zero_pos, depth = neighbor
+            number, _, depth = neighbor
             if number not in parents and neighbor not in explored:
-                x = zero_pos // 3
-                y = zero_pos % 3
-                manhattan = abs(x - 2) + abs(y - 2)
+                manhattan = calc_heuristic(number, "manhattan")
                 q.heappush(frontier, (manhattan + depth, neighbor))
                 parents[number] = state[0]
                 max_depth = max(max_depth, depth)
@@ -183,9 +199,7 @@ def a_star_with_euclidean(initial_state: tuple):
     frontier = []
     explored = set()
     parents = dict()
-    x = initial_state[1] // 3
-    y = initial_state[1] % 3
-    euclidean = math.sqrt(pow(x - 2, 2) + pow(y - 2, 2))
+    euclidean = calc_heuristic(initial_state[0], "euclidean")
     q.heappush(frontier, (euclidean, initial_state))
     parents[initial_state[0]] = initial_state[0]
     max_depth = 0
@@ -201,11 +215,9 @@ def a_star_with_euclidean(initial_state: tuple):
 
         neighbors = get_neighbors(state)
         for neighbor in neighbors:
-            number, zero_pos, depth = neighbor
+            number, _, depth = neighbor
             if number not in parents and neighbor not in explored:
-                x = zero_pos // 3
-                y = zero_pos % 3
-                euclidean = math.sqrt(pow(x - 2, 2) + pow(y - 2, 2))
+                euclidean = calc_heuristic(number, "euclidean")
                 q.heappush(frontier, (euclidean + depth, neighbor))
                 parents[number] = state[0]
                 max_depth = max(max_depth, depth)
