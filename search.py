@@ -5,11 +5,17 @@ goal_state = 1_2_3_4_5_6_7_8
 
 
 def print_state(ls):
+    """
+    This function takes a state list and prints it in a form of table.
+    """
     for i in range(0, len(ls), 3):
         print(ls[i], ls[i + 1], ls[i + 2])
 
 
 def print_path(states):
+    """
+    This function takes a path to the goal node and prints every state from the initial one to the goal state.
+    """
     for i in range(len(states) - 1, -1, -1):
         ls = []
         for j in range(8, -1, -1):
@@ -29,8 +35,7 @@ def swap_digits(number, zero_pos, digit_pos):
 
 def get_neighbors(state: tuple):
     """
-    This function takes a state and returns the valid states to go to from
-    this state.
+    This function takes a state and returns the valid states to go to from this state.
     """
     # state[0] is the board representation number
     # state[1] is the zero position
@@ -65,8 +70,9 @@ def get_neighbors(state: tuple):
 
 def bfs(initial_state: tuple):
     """
-    This function takes the initial state of the 8-puzzle board and returns
-    a dictionary of parents and children.
+    This function takes the initial state of the 8-puzzle board and returns a tuple containing
+    a dictionary of parents and children (None if no solution exists) and the number of expanded nodes.
+    The frontier is a Queue data structure.
     """
     frontier = []
     explored = set()
@@ -87,13 +93,14 @@ def bfs(initial_state: tuple):
                 frontier.append(neighbor)
                 parents[neighbor[0]] = state[0]
 
-    return None
+    return None, len(explored)
 
 
 def dfs(initial_state: tuple):
     """
-    This function takes the initial state of the 8-puzzle board and returns
-    a dictionary of parents and children.
+    This function takes the initial state of the 8-puzzle board and returns a tuple containing
+    a dictionary of parents and children (None if no solution exists) and the number of expanded nodes.
+    The frontier is a Stack data structure.
     """
     frontier = []
     explored = set()
@@ -114,13 +121,14 @@ def dfs(initial_state: tuple):
                 frontier.append(neighbor)
                 parents[neighbor[0]] = state[0]
 
-    return None
+    return None, len(explored)
 
 
 def a_star_with_manhattan(initial_state: tuple):
     """
-    This function takes the initial state of the 8-puzzle board and returns
-    a dictionary of parents and children.
+    This function takes the initial state of the 8-puzzle board and returns a tuple containing
+    a dictionary of parents and children (None if no solution exists) and the number of expanded nodes.
+    The frontier is a Priority Queue data structure (its key = manhattan heuristic + cost to reach that state).
     """
     frontier = []
     explored = set()
@@ -151,13 +159,14 @@ def a_star_with_manhattan(initial_state: tuple):
                 q.heappush(frontier, (manhattan + distance + 1, (distance + 1, neighbor)))
                 parents[neighbor[0]] = state[0]
 
-    return None
+    return None, len(explored)
 
 
 def a_star_with_euclidean(initial_state: tuple):
     """
-    This function takes the initial state of the 8-puzzle board and returns
-    a dictionary of parents and children.
+    This function takes the initial state of the 8-puzzle board and returns a tuple containing
+    a dictionary of parents and children (None if no solution exists) and the number of expanded nodes.
+    The frontier is a Priority Queue data structure (its key = Euclidean heuristic + cost to reach that state).
     """
     frontier = []
     explored = set()
@@ -188,4 +197,4 @@ def a_star_with_euclidean(initial_state: tuple):
                 q.heappush(frontier, (euclidean + distance + 1, (distance + 1, neighbor)))
                 parents[neighbor[0]] = state[0]
 
-    return None
+    return None, len(explored)
