@@ -13,7 +13,7 @@
         <ul>
             <li><a href="#dfs">Depth First Search</a></li>
             <li><a href="#bfs">Breadth First Search</a></li>
-            <li><a href="#a-star-man">A* Search with Manhattan heuristic</a></li>
+            <li><a href="#a-search-with-manhattan-heuristic">A* Search with Manhattan heuristic</a></li>
             <li><a href="#a-star-euc">A* Search with Euclidean heuristic</a></li>
             <li><a href="#comp">Test Cases & Comparisons</a></li>
         </ul>
@@ -43,7 +43,7 @@
             - BFS can find the optimal solution only if all costs are equal to one
         </p>
         <hr>
-        <h2 id="a-star-man">A* Search with Manhattan heuristic</h2>
+        <h2 id="a-search-with-manhattan-heuristic">A* Search with Manhattan heuristic</h2>
         <p>
             - Data Structure: Priority Queue <br>
             - Completeness: Complete <br>
