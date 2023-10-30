@@ -171,8 +171,6 @@ def a_star_with_manhattan(initial_state: tuple):
 
     while len(frontier) > 0:
         _, state = q.heappop(frontier)
-        if state in explored:
-            continue
         explored.add(state)
 
         if state[0] == goal_state:
@@ -206,8 +204,6 @@ def a_star_with_euclidean(initial_state: tuple):
 
     while len(frontier) > 0:
         _, state = q.heappop(frontier)
-        if state in explored:
-            continue
         explored.add(state)
 
         if state[0] == goal_state:
