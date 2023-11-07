@@ -13,6 +13,8 @@ def display_results(solution, time_taken):
 
         print_path(path)
         print("Cost of the path:", len(path) - 1)
+    else:
+        print("Not Found")
 
     print("Depth:", depth)
     print("Number of expanded nodes:", expanded_nodes)
@@ -85,3 +87,28 @@ def a_star_with_euclidean_test(initial_state: tuple):
 # dfs_test((806547231, 7, 0))
 # a_star_with_manhattan_test((806547231, 7, 0))
 # a_star_with_euclidean_test((806547231, 7, 0))
+# ------------------------------------------
+# bfs_test((312645078, 2, 0))
+# dfs_test((312645078, 2, 0))
+# a_star_with_manhattan_test((312645078, 2, 0))
+# a_star_with_euclidean_test((312645078, 2, 0))
+# ------------------------------------------
+# bfs_test((102345678, 7, 0))
+# dfs_test((102345678, 7, 0))
+# a_star_with_manhattan_test((102345678, 7, 0))
+# a_star_with_euclidean_test((102345678, 7, 0))
+# ------------------------------------------
+# bfs_test((312480657, 3, 0))
+# dfs_test((312480657, 3, 0))
+# a_star_with_manhattan_test((312480657, 3, 0))
+# a_star_with_euclidean_test((312480657, 3, 0))
+# ------------------------------------------
+# bfs_test((538140276, 3, 0))
+# dfs_test((538140276, 3, 0))
+# a_star_with_manhattan_test((538140276, 3, 0))
+# a_star_with_euclidean_test((538140276, 3, 0))
+# ------------------------------------------
+# bfs_test((821546037, 2, 0))
+# dfs_test((821546037, 2, 0))
+# a_star_with_manhattan_test((821546037, 2, 0))
+# a_star_with_euclidean_test((821546037, 2, 0))
