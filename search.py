@@ -181,7 +181,7 @@ def a_star_with_manhattan(initial_state: tuple):
             number, _, depth = neighbor
             if number not in parents and neighbor not in explored:
                 manhattan = calc_heuristic(number, "manhattan")
-                q.heappush(frontier, (manhattan + depth, neighbor))
+                q.heappush(frontier, (manhattan + 2 * depth, neighbor))
                 parents[number] = state[0]
                 max_depth = max(max_depth, depth)
 
@@ -214,7 +214,7 @@ def a_star_with_euclidean(initial_state: tuple):
             number, _, depth = neighbor
             if number not in parents and neighbor not in explored:
                 euclidean = calc_heuristic(number, "euclidean")
-                q.heappush(frontier, (euclidean + depth, neighbor))
+                q.heappush(frontier, (euclidean + 2 * depth, neighbor))
                 parents[number] = state[0]
                 max_depth = max(max_depth, depth)
 
