@@ -122,4 +122,4 @@ def test_on_file(input_file_name, output_file_name):
 # ------------------------------------------
 # test_on_terminal((738260541, 3, 0))
 # ------------------------------------------
-test_on_file('input.txt', 'output.txt')
+# test_on_file('input.txt', 'output.txt')
