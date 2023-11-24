@@ -18,7 +18,11 @@ You could also try your own tests and let me know if something went wrong.
 
 The state of the 8-puzzle board could be represented as a 2D matrix on the following form: 
 
------------</br>| 0 | 1 | 2 |</br>| 3 | 4 | 5 |</br>| 6 | 7 | 8 |</br>-----------</br>
+|   |   |   |
+|---|---|---|
+| 0 | 1 | 2 |
+| 3 | 4 | 5 |
+| 6 | 7 | 8 |
 
 Also, the state could be represented like this: 0 1 2 3 4 5 6 7 8
 
