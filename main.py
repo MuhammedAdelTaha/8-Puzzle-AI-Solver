@@ -1,25 +1,4 @@
-import time
-from search import goal_state, dfs, bfs, a_star_with_manhattan, a_star_with_euclidean, print_path
-
-
-def get_path(parents):
-    if parents is not None:
-        state = goal_state
-        path = [state]
-        while state != parents[state]:
-            state = parents[state]
-            path.append(state)
-
-        return path
-    return None
-
-
-def search_results(search_technique, initial_state: tuple):
-    start = time.time()
-    parents, expanded_nodes, depth = search_technique(initial_state)
-    running_time = time.time() - start
-    path = get_path(parents)
-    return path, depth, expanded_nodes, running_time
+from search import dfs, bfs, a_star_with_manhattan, a_star_with_euclidean, search_results, print_path
 
 
 def display_results_on_terminal(search_technique, test):

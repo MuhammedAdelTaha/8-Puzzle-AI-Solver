@@ -3,6 +3,7 @@ The state consists of (the state number representation, the zero-digit position 
                         of the state, the depth of the state)
 The initial state depth is zero
 """
+import time
 import heapq as q
 import math
 
@@ -27,6 +28,33 @@ def print_path(states):
             ls.append((states[i] % pow(10, j + 1)) // pow(10, j))
         print_state(ls)
         print()
+
+
+def get_path(parents):
+    """
+    This function takes a parent's dictionary and extracts a list(represents the path)
+    of states from the initial state to the goal state.
+    """
+    if parents is not None:
+        state = goal_state
+        path = [state]
+        while state != parents[state]:
+            state = parents[state]
+            path.append(state)
+
+        return path
+    return None
+
+
+def search_results(search_technique, initial_state: tuple):
+    """
+    This function takes a search function and an initial state and returns a tuple contains all results.
+    """
+    start = time.time()
+    parents, expanded_nodes, depth = search_technique(initial_state)
+    running_time = time.time() - start
+    path = get_path(parents)
+    return path, depth, expanded_nodes, running_time
 
 
 def swap_digits(number, zero_pos, digit_pos):
