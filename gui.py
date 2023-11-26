@@ -35,23 +35,20 @@ class ResultsScreen:
 
         # Configure the style for the button
         self.root.style = ttk.Style()
-        self.root.style.configure('My.TButton', font=('Arial', 16), padding=(5, 5))
+        self.root.style.configure('My.TButton', font=('Arial', 16), padding=(5, 5), ipady=10, width=10)
 
         back_button.grid(row=0, column=0, padx=10, pady=10, sticky="nw")
 
         # Display results on labels
         path, depth, expanded_nodes, running_time = results
 
-        if path is not None:
-            ttk.Label(root, font=('Arial', 14), text="Cost: {}".format(len(path))).grid(row=1, column=1)
-        else:
-            ttk.Label(root, font=('Arial', 14), text="No Solution!").grid(row=1, column=1)
-
-        ttk.Label(root, font=('Arial', 14), text="Depth: {}".format(depth)).grid(row=2, column=1)
-        ttk.Label(root, font=('Arial', 14), text="Expanded Nodes: {}".format(expanded_nodes)).grid(row=3, column=1)
-        ttk.Label(root, font=('Arial', 14), text="Time: {:.6f} seconds".format(running_time)).grid(row=4, column=1)
+        ttk.Label(root, font=('Arial', 14), text="Run Time: {:.6f} seconds".format(running_time)).grid(row=1, column=1)
+        ttk.Label(root, font=('Arial', 14), text="Expanded Nodes: {}".format(expanded_nodes)).grid(row=2, column=1)
+        ttk.Label(root, font=('Arial', 14), text="Depth: {}".format(depth)).grid(row=3, column=1)
         if path is None:
+            ttk.Label(root, font=('Arial', 20), text="No Solution!").grid(row=4, column=1)
             return
+        ttk.Label(root, font=('Arial', 14), text="Cost: {}".format(len(path))).grid(row=4, column=1)
 
         # Display initial state
         self.path = path
@@ -96,7 +93,8 @@ class ResultsScreen:
                 cell_value = grid_values[i][j]
                 label_text = ' ' if cell_value == 0 else str(cell_value)
 
-                cell_label = ttk.Label(grid_frame, text=label_text, font=('Arial', 14), relief=tk.GROOVE, width=10)
+                cell_label = ttk.Label(grid_frame, text=label_text, font=('Arial', 14), relief=tk.GROOVE, width=10,
+                                       anchor='center')
                 cell_label.grid(row=i, column=j, ipadx=15, ipady=30)
 
     def show_previous_state(self):
