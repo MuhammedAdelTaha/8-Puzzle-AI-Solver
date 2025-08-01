@@ -18,8 +18,8 @@
 * **Data Structure:** Stack
 * **Completeness:** Not complete
 * **Optimality:** Not optimal
-* **Time:** O($ b^m $)
-* **Space:** O($ b*m $)
+* **Time:** O($b^m$)
+* **Space:** O($b*m$)
 * **b** is the branching factor
 * **m** is the maximum possible search tree depth
 * DFS is good only when it comes to space complexity
@@ -30,8 +30,8 @@
 * **Data Structure:** Queue 
 * **Completeness:** Complete
 * **Optimality:** Optimal
-* **Time:** O($ b^s $)
-* **Space:** O($ b^s $)
+* **Time:** O($b^s$)
+* **Space:** O($b^s$)
 * **b** is the branching factor
 * **s** is the level where the goal state is present
 * BFS is not very well dealt with space
